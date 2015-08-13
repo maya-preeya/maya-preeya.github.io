@@ -2,10 +2,10 @@
 
       <p class="footer-company-motto">{{site.title}}</p>
 
-      <p class="footer-links">
+      <p class="footer-links">&middot; 
         {% for page in site.pages %}
           {% if page.title %}
-            <a href='{{ page.url | prepend: site.baseurl }}'><span>{{ page.title }}</span></a>
+            <a href='{{ page.url | prepend: site.baseurl }}'><span>{{ page.title }}</span></a> &middot; 
           {% endif %}
         {% endfor %}  
       </p>
