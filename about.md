@@ -8,4 +8,7 @@ permalink: /about/
 semi-precious stones set in silver, gold, and vermeil.
 You will find these exquisite and exclusive pieces
 of jewelry to include the use of antique ivory,
-jade, and pearls.</center>
+jade, and pearls.</center><br><br>
+<center>MAYA PREEYA'S beloved creations
+ will become family collections
+over generations.</center>
