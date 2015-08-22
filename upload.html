@@ -53,9 +53,9 @@ layout: default
           var testObject = new TestObject();
           testObject.set("imageurl", data.url);
           testObject.set("name", $("#name").val());
-          testObject.set("tags", $("#tags").val());
+          testObject.set("tags", $("#tags").val().toLower());
           testObject.set("price", $("#price").val());
-          testObject.set("description", $("#description").val())
+          testObject.set("description", $("#description").val());
           testObject.save(null, {
   success: function(gameScore) {
     // Execute any logic that should take place after the object is saved.
