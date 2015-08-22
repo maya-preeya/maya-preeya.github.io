@@ -17,7 +17,7 @@ query.find({
       var jewel = object.get('tags');
       if(jewel.indexOf('{{ page.title }}'.toLowerCase()) > -1)
       {var script = "</scr" + "ipt>";
-      	$("#jewelry").append("<h2>"+object.get('name')+" &middot; $"+object.get('price')+"</h2><br><img src='"+object.get('imageurl')+"'><br><br><h3>"+object.get('description')+"</h3>"+'<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=mshenoy41@yahoo.commshenoy41@yahoo.com" data-button="buynow" data-name="Agate" data-env="sandbox">'+script)
+      	$("#jewelry").append("<h2>"+object.get('name')+" &middot; $"+object.get('price')+"</h2><br><img src='"+object.get('imageurl')+"'><br><br><h3>"+object.get('description')+"</h3>"+'<form target="_top" class="paypal-button" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post"><div id="errorBox" class="hide"></div><input value="www.sandbox" name="env" type="hidden"><input value="'+object.get('name')+'" name="item_name" type="hidden"><input value="buynow" name="button" type="hidden"><input value="_xclick" name="cmd" type="hidden"><input value="mshenoy41@yahoo.com" name="business" type="hidden"><input value="JavaScriptButton_buynow" name="bn" type="hidden"><button class="paypal-button large" type="submit">Buy Now</button></form>')
       	
       }
     }
