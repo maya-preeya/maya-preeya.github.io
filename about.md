@@ -1,11 +1,14 @@
 ---
 layout: page
-title: About
+title: The Artiste
 permalink: /about/
 ---
-
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
-
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+<center><img src="http://image.jimcdn.com/app/cms/image/transf/dimension=205x10000:mode=fitin:format=jpg/path/s512c6eb66f42e42a/image/i27797202baad0423/version/1352751338/image.jpg"></center><br><br>
+<center>My expressions of jewelry use mixed media such as precious and
+semi-precious stones set in silver, gold, and vermeil.
+You will find these exquisite and exclusive pieces
+of jewelry to include the use of antique ivory,
+jade, and pearls.</center><br><br>
+<center>MAYA PREEYA'S beloved creations
+ will become family collections
+over generations.</center>
