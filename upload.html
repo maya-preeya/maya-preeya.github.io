@@ -13,6 +13,12 @@ layout: default
     <br><br>
     <input type="text" placeholder="Price of the piece" id="price">
     <br><br>
+    <input type="text" placeholder="Pendant size" id="psize">
+    <br><br>
+    <input type="text" placeholder="Pendant width" id="pwidth">
+    <br><br>
+    <input type="text" placeholder="Bead size" id="bsize">
+    <br><br>
     <textarea placeholder="Description of the piece" id="description"></textarea>
     <br><br>
     <textarea placeholder="All the Jewelry Items you used in the piece (SEPARATE BY SPACE AND IN LOWERCASE, i.e. 'coral lapis aquamarine'" id="tags"></textarea>
@@ -53,6 +59,9 @@ layout: default
           var testObject = new TestObject();
           testObject.set("imageurl", data.url);
           testObject.set("name", $("#name").val());
+          testObject.set("pendantsize", $("#psize").val());
+          testObject.set("pendantwidth", $("#pwidth").val());
+          testObject.set("beadsize", $("#bsize").val());
           testObject.set("tags", $("#tags").val().toLower());
           testObject.set("price", $("#price").val());
           testObject.set("description", $("#description").val());

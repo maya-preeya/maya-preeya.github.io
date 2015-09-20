@@ -17,7 +17,7 @@ query.find({
       var jewel = object.get('tags');
       if(jewel.indexOf('{{ page.title }}'.toLowerCase()) > -1)
       {
-      	$("#jewelry").append("<h2>"+object.get('name')+" &middot; $"+object.get('price')+"</h2><br><img src='"+object.get('imageurl')+"'><br><br><h3>"+object.get('description')+"</h3>")
+      	$("#jewelry").append("<h2>"+object.get('name')+" &middot; $"+object.get('price')+"</h2><br><img src='"+object.get('imageurl')+"'><br><br><h3>Pendant Size: "+object.get('psize')+"in.<br>Pendant Width: "+object.get('pwidth')"in.<br>Bead size: "+object.get('bsize')+"in.<br>"+object.get('description')+"</h3>")
       }
     }
   },
