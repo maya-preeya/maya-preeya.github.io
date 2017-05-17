@@ -1,30 +1,36 @@
 ---
 layout: default
 ---
-<div class="jumbotron container" id="jewelry"style="background:#FFF">
+<div class="jumbotron container" id="jewelry" style="background:#FFF">
     <h1>{{ page.title }}</h1>
 </div>
-
 <script>
 var title = "{{page.title}}";
-var GameScore = Parse.Object.extend("jewelry");
-var query = new Parse.Query(GameScore);
-query.find({
-  success: function(results) {
+var starCountRef = firebase.database().ref();
+starCountRef.on('value', function(result) {
+    object = result.val().jewels;
     // Do something with the returned Parse.Object values
-    for (var i = 0; i < results.length; i++) {
-      var object = results[i];
-      var jewel = object.get('tags');
-      if(jewel.indexOf('{{ page.title }}'.toLowerCase()) > -1)
-      {var script = "</scr" + "ipt>";
-      	$("#jewelry").append("<div class='row'><div class='col-md-3' style='height:200px;background:url("+object.get('imageurl')+") center / cover;'></div><div class='col-md-9'><h2>"+object.get('name')+" &middot; $"+object.get('price')+"</h2><br><h3>"+object.get('description')+"</h3>"+'<form method="post" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top" style="opacity: 1;"><div class="hide" id="errorBox"></div><input type="hidden" name="button" value="buynow"><input type="hidden" name="business" value="JFKQP4B73VASJ"><input type="hidden" name="item_name" value="'+object.get('name')+'"><input type="hidden" name="quantity" value="1"><input type="hidden" name="amount" value="'+object.get('price')+'"><input type="hidden" name="currency_code" value="USD"><input type="hidden" name="shipping" value="0"><input type="hidden" name="tax" value="0"><input type="hidden" name="notify_url" value=""><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="bn" value="JavaScriptButton_buynow"><input type="hidden" name="env" value="www"><button type="submit" class="paypal-button large btn btn-default">Buy Now</button></form></div></div><br><br>')
-      	
-      }
+    var jewel = object.tags;
+    console.log(jewel);
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    var spaceRef = storageRef.child(''+object.imageurl+'.jpeg');
+    //
+    storageRef.child(''+object.imageurl+'.jpeg').getDownloadURL().then(function(url) {
+        //
+        //
+        var test = url;
+        //  add this line here:
+        console.log(test)
+        document.getElementById("your_img_id").src = test;
+
+    }).catch(function(error) {
+
+    });
+
+    if (jewel.indexOf('{{ page.title }}'.toLowerCase()) > -1) {
+        $("#jewelry").append("<div class='row'><div class='col-md-3' style='height:200px;background:url(" + object.imageurl + ") center / cover;'></div><div class='col-md-9'><h2>" + object.name + " &middot; $" + object.price + "</h2><br><h3>" + object.description + "</h3>" + '<form method="post" action="https://www.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top" style="opacity: 1;"><div class="hide" id="errorBox"></div><input type="hidden" name="button" value="buynow"><input type="hidden" name="business" value="JFKQP4B73VASJ"><input type="hidden" name="item_name" value="' + object.name + '"><input type="hidden" name="quantity" value="1"><input type="hidden" name="amount" value="' + object.price + '"><input type="hidden" name="currency_code" value="USD"><input type="hidden" name="shipping" value="0"><input type="hidden" name="tax" value="0"><input type="hidden" name="notify_url" value=""><input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="bn" value="JavaScriptButton_buynow"><input type="hidden" name="env" value="www"><button type="submit" class="paypal-button large btn btn-default">Buy Now</button></form></div></div><br><br>')
+
     }
-  },
-  error: function(error) {
-    alert("Error: " + error.code + " " + error.message);
-  }
 });
 </script>
-

@@ -1,89 +1,83 @@
 ---
 layout: default
 ---
-
-<style type="text/css">input, textarea{width: 75%;}</style>
-<div align="center">
-<form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
-  <fieldset>
-    <br><br><br>
-    <input type="file" name="fileselect" id="fileselect"></input>
-    <br><br>
-    <input type="text" placeholder="Name of the piece" id="name">
-    <br><br>
-    <input type="text" placeholder="Price of the piece" id="price">
-    <br><br>
-    <input type="text" placeholder="Pendant size" id="psize">
-    <br><br>
-    <input type="text" placeholder="Pendant width" id="pwidth">
-    <br><br>
-    <input type="text" placeholder="Bead size" id="bsize">
-    <br><br>
-    <textarea placeholder="Description of the piece" id="description"></textarea>
-    <br><br>
-    <textarea placeholder="All the Jewelry Items you used in the piece (SEPARATE BY SPACE AND IN LOWERCASE, i.e. 'coral lapis aquamarine'" id="tags"></textarea>
-    <br><br>
-    <input id="uploadbutton" type="button" value="Upload Image"/>
-  </fieldset>
-</form>
+<style type="text/css">
+input,
+textarea {
+    width: 75%;
+}
+</style>
+<div align="">
+    <div class="container">
+        <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
+            <fieldset>
+                <br>
+                <br>
+                <br>
+                <h3>Upload file:</h3>
+                <input type="file" name="fileselect" id="fileselect"></input>
+                <br>
+                <br>
+                <h3>Name of the piece:</h3>
+                <input type="text" placeholder="Name of the piece" id="name">
+                <br>
+                <br>
+                <h3>Price (without dollar sign):</h3>
+                <input type="text" placeholder="Price of the piece WITHOUT DOLLAR SIGN" id="price">
+                <br>
+                <br>
+                <h3>Pendant size:</h3>
+                <input type="text" placeholder="Pendant size" id="psize">
+                <br>
+                <br>
+                <h3>Pendant width:</h3>
+                <input type="text" placeholder="Pendant width" id="pwidth">
+                <br>
+                <br>
+                <h3>Bead size:</h3>
+                <input type="text" placeholder="Bead size" id="bsize">
+                <br>
+                <br>
+                <h3>Description of the piece:</h3>
+                <textarea placeholder="Description of the piece" id="description"></textarea>
+                <br>
+                <br>
+                <h3>All the items used in the piece (SEPARATE BY SPACE AND IN ALL LOWERCASE, i.e. &quot;coral lapis aquamarine&quot;:</h3>
+                <textarea placeholder="All the Jewelry Items you used in the piece (SEPARATE BY SPACE AND IN LOWERCASE, i.e. 'coral lapis aquamarine'" id="tags"></textarea>
+                <br>
+                <br>
+                <input id="uploadbutton" type="button" value="Submit" />
+            </fieldset>
+        </form>
+    </div>
 </div>
 <script type="text/javascript">
-  $(function() {
-    var file;
-
-    // Set an event listener on the Choose File field.
-    $('#fileselect').bind("change", function(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      // Our file var now holds the selected file
-      file = files[0];
-    });
-
-    // This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
-    $('#uploadbutton').click(function() {
-      var serverUrl = 'https://api.parse.com/1/files/' + file.name;
-
-      $.ajax({
-        type: "POST",
-        beforeSend: function(request) {
-          request.setRequestHeader("X-Parse-Application-Id", '4xorZh7zv0YjtVvF7bbonr05DAFS2OeXhRsHR8LK');
-          request.setRequestHeader("X-Parse-REST-API-Key", 'eYdtAAh7gb6KRULTZP5n232usgCy0YBHUKZMiAL2');
-          request.setRequestHeader("Content-Type", file.type);
-        },
-        url: serverUrl,
-        data: file,
-        processData: false,
-        contentType: false,
-        success: function(data) {
-          alert("File available at: " + data.url);
-          var TestObject = Parse.Object.extend("jewelry");
-          var testObject = new TestObject();
-          testObject.set("imageurl", data.url);
-          testObject.set("name", $("#name").val());
-          testObject.set("pendantsize", $("#psize").val());
-          testObject.set("pendantwidth", $("#pwidth").val());
-          testObject.set("beadsize", $("#bsize").val());
-          testObject.set("tags", $("#tags").val().toLower());
-          testObject.set("price", $("#price").val());
-          testObject.set("description", $("#description").val());
-          testObject.save(null, {
-  success: function(gameScore) {
-    // Execute any logic that should take place after the object is saved.
-    alert('New object created with objectId: ' + gameScore.id);
-  },
-  error: function(gameScore, error) {
-    // Execute any logic that should take place if the save fails.
-    // error is a Parse.Error with an error code and message.
-    alert('Failed to create new object, with error code: ' + error.message);
-  }
+var file;
+// Set an event listener on the Choose File field.
+$('#fileselect').bind("change", function(e) {
+    var files = e.target.files || e.dataTransfer.files;
+    // Our file var now holds the selected file
+    file = files[0];
 });
-        },
-        error: function(data) {
-          var obj = jQuery.parseJSON(data);
-          alert(obj.error);
-        }
-      });
+// This function is called when the user clicks on Upload to Parse. It will create the REST API request to upload this image to Parse.
+$('#uploadbutton').click(function() {
+    var timestamp = Number(new Date());
+    var storageRef = firebase.storage().ref();
+    console.log(timestamp)
+    console.log($("#name").val())
+    storageRef.put(file).then(function(snapshot) {
+        console.log(snapshot);
     });
-
-
-  });
+    var database = firebase.database();
+    firebase.database().ref('jewels').set({
+    	imageurl: timestamp,
+        name: $("#name").val(),
+        price: $("#price").val(),
+        pendantSize: $("#psize").val(),
+        pendantWidth: $("#pwidth").val(),
+        beadSize: $("#bsize").val(),
+        description: $("#description").val(),
+        tags: $("#tags").val()
+    });
+});
 </script>
